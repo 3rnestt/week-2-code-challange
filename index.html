@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animal List</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+</head>
+<body>
+	<h1>Animal List</h1>
+	<ul id="animal-list"></ul>
+
+	<div id="animal-details">
+		<h2 id="animal-name"></h2>
+		<img id="animal-image">
+		<p>Votes: <span id="animal-votes"></span></p>
+		<form id="vote-form">
+			<label for="votes">Number of votes:</label>
+			<input type="number" id="votes" name="votes" value="0" min="0">
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+	<button id="reset-button">Reset Votes</button>
+
+	<form id="add-animal-form">
+		<h2>Add Animal</h2>
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" required>
+		<label for="image">Image URL:</label>
+		<input type="url" id="image" name="image" required>
+		<input type="submit" value="Submit">
+	</form>
+
+	<script>
+		var animalList = $('#animal-list');
+		var animalDetails = $('#animal-details');
+		var animalName = $('#animal-name');
+		var animalImage = $('#animal-image');
+		var animalVotes = $('#animal-votes');
+		var voteForm = $('#vote-form');
+		var resetButton = $('#reset-button');
+		var addAnimalForm = $('#add-animal-form');
+
+		// Populate animal list
+		$.get('/characters', function(characters) {
+			characters.forEach(function(character) {
+				var li = $('<li>').text(character.name).attr('data-id', character.id);
+				animalList.append(li);
+			});
+
+			// Click event listener for animal list items
+			$('li').on('click', function() {
+				var id = $(this).data('id');
+				$.get('/characters/' + id, function(character) {
+					animalName.text(character.name);
+        </script>        }
+</body>
+    </html>
